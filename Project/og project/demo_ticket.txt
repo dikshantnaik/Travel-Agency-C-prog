@@ -1,0 +1,8 @@
+TOURISM TICKET
+===============
+
+Email ID: demo
+Tour Code: LL
+Ticket Cost: Rs 40000.000000
+Number of tickets: 1
+Total Cost: Rs 40000.000000

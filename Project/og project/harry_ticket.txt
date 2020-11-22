@@ -1,0 +1,8 @@
+TOURISM TICKET
+===============
+
+Email ID: harry
+Tour Code: AND
+Ticket Cost: Rs 120000.000000
+Number of tickets: 5
+Total Cost: Rs 600000.000000
