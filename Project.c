@@ -59,9 +59,9 @@
 					login();
 					printf("User : %s\n",u1.name);
 
-					printf("Pass: %s \n",u1.pass);
-					printf("Place %s\n ",u1.place);
-					printf("Money %s",u1.price);
+// 					printf("Pass: %s \n",u1.pass);
+// 					printf("Place %s\n ",u1.place);
+// 					printf("Money %s",u1.price);
 					system("PAUSE");
 					system("CLS");
 					
@@ -73,7 +73,9 @@
 
 				
 		else if(loggedin==1){
-				printf("Wait\n");
+				
+				printf("Wait Work in Proogress\n");
+				system("PAUSE");
 				break;
 		}
 
