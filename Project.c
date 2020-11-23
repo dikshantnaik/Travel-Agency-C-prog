@@ -1,40 +1,41 @@
+
 	#include<stdio.h>
 	#include <time.h>
 	#include<stdlib.h>
 	#include <string.h>
-	
-int curreentstate=0,loggedin;
+	#include <conio.h>	
+	int loggedin=0; //using it as bool is. True or False
 
 	
-	typedef struct user
+	typedef struct user //declaring user as user defined data type
 	{
 		char name[40];
 		char pass[40];
 		char place[30];
 		int numtick;
-		float price;
+		char price[20];
 		struct user *next;
 		
 	}user;
 
-	int ch;
-	void Welcome();
-	user signUp();
-	void pause(int);
-	user login();
+	int ch;  //choice
+	void Welcome(); //welcome page
+	user signUp();		//defining signup function
+	//void pause(int);
+	user login();		//defining login function
 
 
-	struct user u1,h;
-	char currentuser[20];
+	struct user u1;		//decalring u1 with datatype user ie.its a data type thing  
+	char currentuser[20];	//track for current user 
 	
 	
 
 
 	void main(){
 		
-	Welcome();
+	Welcome();		//calling welcome
 	while(1){
-		if(curreentstate==0)
+		if(loggedin==0)	//while user is not logged in 
 		{	
 			
 					
@@ -45,15 +46,25 @@ int curreentstate=0,loggedin;
 				printf("4.Exit\n");
 
 				printf("Enter Choice :");
-				scanf("%d",&ch);
+				scanf("%d",&ch);		//get choice 
 				
-				switch(ch)
+				switch(ch)				//switch case for choice
 				{
 					case 1:
-					u1 = signUp();
+					signUp();
+					system("PAUSE");
+					system("CLS");
 					break;
 					case 2:
-					u1 = login();
+					login();
+					printf("User : %s\n",u1.name);
+
+					printf("Pass: %s \n",u1.pass);
+					printf("Place %s\n ",u1.place);
+					printf("Money %s",u1.price);
+					system("PAUSE");
+					system("CLS");
+					
 					
 					break;
 					}
@@ -61,7 +72,7 @@ int curreentstate=0,loggedin;
 				
 
 				
-		else if(curreentstate==1){
+		else if(loggedin==1){
 				printf("Wait\n");
 				break;
 		}
@@ -94,16 +105,31 @@ int curreentstate=0,loggedin;
 		
 	user signUp(struct user u1){
 		FILE *fp;
-
-		fp=fopen("user.txt","ab");
-
+		char name[20],pass[20];
+		fp=fopen("user.txt","a");
+		
+		if(fp==NULL){
+			printf("File not Found");
+			
+		}
+		else{
+			printf("File Found ");
+		}
+		fflush(stdin);
+		fflush(fp);
 		printf("Enter Name :");
-		scanf("%s",u1.name);
-		printf("Enter Password :");
-		scanf("%s",u1.pass);
-		// encrypt(u1.pass,0);
+		scanf(" %s",name);
+		//gets(name);
+		strcpy(u1.name,name);
+		printf("\nEnter Password :");
+		scanf(" %s",pass);
+		//gets(pass);
+		strcpy(u1.pass,pass);
+		printf("user name :%s \n pass : %s\n",u1.name,u1.pass);
+		///encrypt(u1.pass,0);
 
 		fprintf(fp, "%s %s \n",u1.name,u1.pass);
+		//fwrite(&u1,sizeof(u1),1,fp);
 		fclose(fp);
 
 		return u1;
@@ -126,41 +152,67 @@ int curreentstate=0,loggedin;
 	}
 
 	user login(){
-		FILE *fp;
-		user temp;
-		char name[20];
+		FILE *fp;		//pointer fp for file 
+	
+		char name[20];	//checking inputed username and pass
 		char pass[20];
-		int flag;
+		int flag;		//flag
 
-		fp = fopen("user.txt","r");
-		printf("Enter name:");
-		scanf("%s",name);
+		fp = fopen("user.txt","rb");	//Open/create file and save address to fp
+		
+		if(fp==NULL)		//No use NVM..It will create a file 
+		{
+			printf("File not Found");
+		}
+		printf("Enter name:");	
+		scanf("%s",name);		
 		printf("\nEnter Password :");
 		scanf("%s",pass);
-
 		
 
-		while(fscanf(fp,"%s %s",u1.name,u1.pass)!=EOF)
-		{
-			
-			if(strcmp(name,u1.name)==0)
-			{
-				
-				
-				curreentstate=1;
+	
 
-				printf("\t\nLoged in Successfuly !");
+		while(fscanf(fp,"%s %s",u1.name,u1.pass)!=EOF)	//Read for username and pass Till the EOF ie. end of the file
+		{	
+			if(strcmp(name,u1.name)==0)	//Comapare the username if exist ??
+			{
+				if((strcmp(pass,u1.pass))==0){	//IF usrname exist check for Password ?? Is Right ?
+				
+				
+				loggedin=1;						//logged in == True 
+				
+				fscanf(fp,"%s ",u1.place);
+				fscanf(fp,"%s",u1.price);
+				printf("\t\nLoged in Successfuly !\n"); //If yes Logged in 
+				
 				break;
 			}
+			
 			else
 			{
-				printf("404\n");
+				printf("Wrong Password !");			//If user and Password does not 
+			
+				flag=1;
 				break;
+			}
+			
+			{
+				printf("\n");
+				flag=0;
 				
 			}
+			
+			if(flag==1){
+				break;
+			}
+			
 		}
+		else if(flag==1)
+		{
+			printf("User not Found !!");
+		}
+	}	
+		fclose(fp); //IDK what happened but its Working :) Please dont try to undeerstand Flag .LOL
+	}
 		
-		fclose(fp);
-		return u1;
-		}
 		
