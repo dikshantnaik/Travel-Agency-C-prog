@@ -57,14 +57,14 @@
 					break;
 					case 2:
 					login();
-					printf("User : %s\n",u1.name);
-
-// 					printf("Pass: %s \n",u1.pass);
-// 					printf("Place %s\n ",u1.place);
-// 					printf("Money %s",u1.price);
 					system("PAUSE");
 					system("CLS");
-					
+					case 3:
+					printf("Preparing ....");
+					case 4:
+						printf("\nExiting......");
+						getch();
+					exit(0);
 					
 					break;
 					}
@@ -73,13 +73,69 @@
 
 				
 		else if(loggedin==1){
-				
-				printf("Wait Work in Proogress\n");
-				system("PAUSE");
-				break;
-		}
-
-		}
+			system("color 2");
+				printf("\n\t\t\t\t=========================");
+		printf("\n\t\t\t\tTOURISM MANAGEMENT SYSTEM");
+		printf("\n\t\t\t\t=========================\n");
+		printf("\n\t\t\t\t\033[0;31mWelcome %s\n \033[0m",u1.name);
+            printf("\n\t\t\t\tBook Package - 1\n\t\t\t\tCheck Ticket - 2\n\t\t\t\tPrint Ticket - 3\n\t\t\t\tCancel Ticket - 4\n\t\t\t\tChange Password - 5"
+                   "\n\t\t\t\tLogout User - 6\n\t\t\t\tBrochure - 7\n\t\t\t\tExit - 8\n");
+            scanf("%d",&ch);
+            if (ch==8){
+            	break;
+			}
+            
+//            currentuser==u1.name;
+//            printf("Current User %s\n",currentuser);
+//            switch(ch)
+//            {
+//                case 1:
+//                    BookTicket();
+//                    system("PAUSE");
+//                    system("CLS");
+//                    break;
+//                case 2:
+//                    CheckTicket();
+//                    system("PAUSE");
+//                    system("CLS");
+//                    break;
+//                case 3:
+//                    PrintTicket();
+//                    system("PAUSE");
+//                    system("CLS");
+//                    break;
+//                case 4:
+//                    CancelTicket();
+//                    system("PAUSE");
+//                    system("CLS");
+//                    break;
+//                case 5:
+//                    ChangePassword();
+//                    system("PAUSE");
+//                    system("CLS");
+//                    break;
+//                case 6:
+//                    LogoutUser();
+//                    system("PAUSE");
+//                    system("CLS");
+//                    break;
+//                case 7:
+//                    ShowBrochure();
+//                    system("PAUSE");
+//                    system("CLS");
+//                    break;
+//                case 8:
+//                    ExitProgram();
+//                    exit(0);
+//                    break;
+//                default:
+//                    printf("Not a valid input at this stage\n");
+//        
+//				break;
+//		}
+//
+	}
+}
 }
 
 
@@ -154,6 +210,7 @@
 	}
 
 	user login(){
+		
 		FILE *fp;		//pointer fp for file 
 	
 		char name[20];	//checking inputed username and pass
@@ -217,4 +274,5 @@
 		fclose(fp); //IDK what happened but its Working :) Please dont try to undeerstand Flag .LOL
 	}
 		
+
 		
