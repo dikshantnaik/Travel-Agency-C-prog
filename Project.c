@@ -32,13 +32,14 @@
 
 
 	void main(){
-		
+	system("color 9");
+	
 	Welcome();		//calling welcome
 	while(1){
 		if(loggedin==0)	//while user is not logged in 
 		{	
 			
-					
+				
 				printf("\nMain Menu\n");
 				printf("1.Sign Up \n");
 				printf("2.Login User\n");
@@ -59,6 +60,7 @@
 					login();
 					system("PAUSE");
 					system("CLS");
+					break;
 					case 3:
 					printf("Preparing ....");
 					case 4:
@@ -135,6 +137,11 @@
 //		}
 //
 	}
+	else
+	{
+		printf("Wrong Input !!!");
+	}
+	
 }
 }
 
@@ -166,13 +173,7 @@
 		char name[20],pass[20];
 		fp=fopen("user.txt","a");
 		
-		if(fp==NULL){
-			printf("File not Found");
-			
-		}
-		else{
-			printf("File Found ");
-		}
+		
 		fflush(stdin);
 		fflush(fp);
 		printf("Enter Name :");
@@ -183,11 +184,12 @@
 		scanf(" %s",pass);
 		//gets(pass);
 		strcpy(u1.pass,pass);
-		printf("user name :%s \n pass : %s\n",u1.name,u1.pass);
+		
 		///encrypt(u1.pass,0);
 
 		fprintf(fp, "%s %s \n",u1.name,u1.pass);
 		//fwrite(&u1,sizeof(u1),1,fp);
+		printf("\nSign Up Successful \Login to Continue \n");
 		fclose(fp);
 
 		return u1;
@@ -219,12 +221,12 @@
 
 		fp = fopen("user.txt","rb");	//Open/create file and save address to fp
 		
-		if(fp==NULL)		//No use NVM..It will create a file 
+		if(fp==NULL)		//No use NVM..It will create a file if didint exist !!!
 		{
 			printf("File not Found");
 		}
 		printf("Enter name:");	
-		scanf("%s",name);		
+		scanf("%s",name);		//enter users name and pass
 		printf("\nEnter Password :");
 		scanf("%s",pass);
 		
@@ -247,28 +249,33 @@
 				break;
 			}
 			
-			else
+			else 
 			{
-				printf("Wrong Password !");			//If user and Password does not 
+				printf("Wrong Password !\n");			//If user and Password does not 
 			
 				flag=1;
 				break;
 			}
 			
 			{
-				printf("\n");
-				flag=0;
+				printf("\n"); //reading the next line 
+				flag=0;  //set flag tp check if found pass ??
 				
 			}
 			
-			if(flag==1){
+			if(flag==1){  //if Found breck and exit the LOOP
 				break;
 			}
 			
 		}
-		else if(flag==1)
+//		else if(flag==0)
+//		{
+//			printf("User not Found !!");
+//		}
+		else
 		{
-			printf("User not Found !!");
+			printf("User not Found !!\n");
+			break;
 		}
 	}	
 		fclose(fp); //IDK what happened but its Working :) Please dont try to undeerstand Flag .LOL
