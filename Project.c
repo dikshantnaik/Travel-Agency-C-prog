@@ -14,19 +14,21 @@
 		char place[30];
 		int numtick;
 		char price[20];
-		struct user *next;
+		struct user *next
 		
 	}user;
 
 	int ch;  //choice
 	void Welcome(); //welcome page
 	user signUp();		//defining signup function
-	//void pause(int);
-	user login();		//defining login function
-
+	
+	user login();
+	void BookTicket();//defining login function
+	void Brochure();
+	
 
 	struct user u1;		//decalring u1 with datatype user ie.its a data type thing  
-	char currentuser[20];	//track for current user 
+	
 	
 	
 
@@ -37,7 +39,7 @@
 	Welcome();		//calling welcome
 	while(1){
 		if(loggedin==0)	//while user is not logged in 
-		{	
+		{
 			
 				
 				printf("\nMain Menu\n");
@@ -62,7 +64,10 @@
 					system("CLS");
 					break;
 					case 3:
-					printf("Preparing ....");
+					Brochure();
+					system("PAUSE");
+					system("Cls");
+					break;
 					case 4:
 						printf("\nExiting......");
 						getch();
@@ -80,27 +85,28 @@
 		printf("\n\t\t\t\tTOURISM MANAGEMENT SYSTEM");
 		printf("\n\t\t\t\t=========================\n");
 		printf("\n\t\t\t\t\033[0;31mWelcome %s\n \033[0m",u1.name);
-            printf("\n\t\t\t\tBook Package - 1\n\t\t\t\tCheck Ticket - 2\n\t\t\t\tPrint Ticket - 3\n\t\t\t\tCancel Ticket - 4\n\t\t\t\tChange Password - 5"
+            printf("\n\t\t\t\t[1] Book Package \n\t\t\t\t[2] Check Ticket \n\t\t\t\t[3] Print Ticket \n\t\t\t\t[4] Cancel Ticket \n\t\t\t\t[5] Change Password "
                    "\n\t\t\t\tLogout User - 6\n\t\t\t\tBrochure - 7\n\t\t\t\tExit - 8\n");
-            scanf("%d",&ch);
+            printf("\n\t\t\t\tEnter you Choice :");
+			scanf("%d",&ch);
             if (ch==8){
             	break;
 			}
             
-//            currentuser==u1.name;
-//            printf("Current User %s\n",currentuser);
-//            switch(ch)
-//            {
-//                case 1:
-//                    BookTicket();
-//                    system("PAUSE");
-//                    system("CLS");
-//                    break;
-//                case 2:
-//                    CheckTicket();
-//                    system("PAUSE");
-//                    system("CLS");
-//                    break;
+            u1.name;
+            
+            switch(ch)
+            {
+                case 1:
+                    BookTicket();
+                    system("PAUSE");
+                    system("CLS");
+                    break;
+                case 2:
+                    printf("You have Booked pack %s for Rs %s",u1.place,u1.price);
+                    system("PAUSE");
+                    system("CLS");
+                    break;
 //                case 3:
 //                    PrintTicket();
 //                    system("PAUSE");
@@ -116,16 +122,17 @@
 //                    system("PAUSE");
 //                    system("CLS");
 //                    break;
-//                case 6:
-//                    LogoutUser();
-//                    system("PAUSE");
-//                    system("CLS");
-//                    break;
-//                case 7:
-//                    ShowBrochure();
-//                    system("PAUSE");
-//                    system("CLS");
-//                    break;
+               case 6:
+                   loggedin=0;
+                   printf("\nLogged Out SuccesFul ......\n");
+                   system("PAUSE");
+                   system("CLS");
+                   break;
+                case 7:
+                    Brochure();
+                    system("PAUSE");
+                    system("CLS");
+                    break;
 //                case 8:
 //                    ExitProgram();
 //                    exit(0);
@@ -134,7 +141,7 @@
 //                    printf("Not a valid input at this stage\n");
 //        
 //				break;
-//		}
+	}
 //
 	}
 	else
@@ -189,7 +196,7 @@
 
 		fprintf(fp, "%s %s \n",u1.name,u1.pass);
 		//fwrite(&u1,sizeof(u1),1,fp);
-		printf("\nSign Up Successful \Login to Continue \n");
+		printf("\nSign Up Successful \n Login to Continue \n");
 		fclose(fp);
 
 		return u1;
@@ -219,14 +226,11 @@
 		char pass[20];
 		int flag;		//flag
 
-		fp = fopen("user.txt","rb");	//Open/create file and save address to fp
+		fp = fopen("user.txt","rb");	//Open/create file and save address to fp rb =Read binary mode !
 		
-		if(fp==NULL)		//No use NVM..It will create a file if didint exist !!!
-		{
-			printf("File not Found");
-		}
+		
 		printf("Enter name:");	
-		scanf("%s",name);		//enter users name and pass
+		scanf("%s",name);		//enter users name and Password
 		printf("\nEnter Password :");
 		scanf("%s",pass);
 		
@@ -235,8 +239,10 @@
 
 		while(fscanf(fp,"%s %s",u1.name,u1.pass)!=EOF)	//Read for username and pass Till the EOF ie. end of the file
 		{	
+			
 			if(strcmp(name,u1.name)==0)	//Comapare the username if exist ??
 			{
+				
 				if((strcmp(pass,u1.pass))==0){	//IF usrname exist check for Password ?? Is Right ?
 				
 				
@@ -257,11 +263,11 @@
 				break;
 			}
 			
-			{
-				printf("\n"); //reading the next line 
-				flag=0;  //set flag tp check if found pass ??
-				
-			}
+			
+//				printf("\n"); //reading the next line 
+//				flag=0;  //set flag tp check if found pass ??
+//				
+			
 			
 			if(flag==1){  //if Found breck and exit the LOOP
 				break;
@@ -272,14 +278,85 @@
 //		{
 //			printf("User not Found !!");
 //		}
-		else
-		{
-			printf("User not Found !!\n");
-			break;
-		}
+//		else
+//		{
+//			printf("User not Found !!\n");
+//			break;
+//		}
 	}	
 		fclose(fp); //IDK what happened but its Working :) Please dont try to undeerstand Flag .LOL
 	}
-		
+	
+void BookTicket(){
+	int ch;
+	printf("\t\t\t[1] Domestic Packs \n");
+	printf(" \t\t\t[2] InterNational Travel Pack\n ");
+	printf("\t\t\tEnter Choice : ");
+	scanf("%d",&ch);
+	
+		if(ch==1){
+			system("CLS");
+			printf("\t\t\tPOPULAR DOMESTIC DESTINATIONS\n");
+			printf("\t\t   \xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\n");
+			printf("1. LONAVALA\nVALIDITY-2D/1N\nRATE- 8,000(PER/PERSON)\t\t\t\n\n");
+			printf("2. MAHABALESHWAR\nVALIDITY-3D/2N\nRATE- 10,000(PER/PERSON)\t\t\t\n\n");
+			printf("3. MATHERAN\nVALIDITY-3D/2N\nRATE- 15,000(PER/PERSON)\t\t\t\n\n");
+			printf("4. ALIBAUG\nVALIDITY-2D/1N\nRATE- 5,000(PER/PERSON)\t\t\t\n\n");
+			printf("5. SHIMLA\nVALIDITY-5D/4N\nRATE- 25,000(PER/PERSON)\t\t\t\n\n");
+			printf("6. MANALI\nVALIDITY-4D/3N\nRATE- 22,000(PER/PERSON)\t\t\t\n\n");
+			printf("7. KASHMIR\nVALIDITY-6D/5N\nRATE- 29,500(PER/PERSON)\t\t\t");
 
+		}
+		else if (ch==2){
+			system("CLS");
+			printf("\t\t\tPOPULAR INTERNATIONAL DESTINATIONS\n");
+			printf("\t\t     \xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\n");
+			printf("	1. DUBAI\nVALIDITY-6D/5N\nRATE- 85,000(PER/PERSON)\t\t\t\n\n");
+			printf("2. SINGAPORE\nVALIDITY-5D/3N\nRATE- 65,000(PER/PERSON)\t\t\t\n\n");
+			printf("3. EUROPE\nVALIDITY-8D/7N\nRATE- 95,000(PER/PERSON)\t\t\t\n\n");
+			printf("4. BALI\nVALIDITY-7D/6N\nRATE- 75,000(PER/PERSON)\t\t\t\n\n");
+			printf("5. MALDIVES\nVALIDITY-4D/3N\nRATE- 67,999(PER/PERSON)\t\t\t\n\n");
+			printf("6. BANGKOK\nVALIDITY-7D/6N\nRATE- 59,999(PER/PERSON)\t\t\t\n\n");
+			printf("7. THAILAND\nVALIDITY-5D/4N\nRATE- 70,300(PER/PERSON)\t\t\t");
+
+		}
+	}
+	
+	
+	void Brochure(){
 		
+		
+		int ch;
+		printf("\t\t\t[1] Domestic Packs \n");
+		printf(" \t\t\t[2] InterNational Travel Pack\n ");
+		printf("\t\t\tEnter Choice : ");
+		scanf("%d",&ch);
+	
+		if(ch==1){
+			system("CLS");
+			printf("\t\t\tPOPULAR DOMESTIC DESTINATIONS\n");
+			printf("\t\t   \xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\n");
+			printf("1. LONAVALA\nVALIDITY-2D/1N\nRATE- 8,000(PER/PERSON)\t\t\t\n\n");
+			printf("2. MAHABALESHWAR\nVALIDITY-3D/2N\nRATE- 10,000(PER/PERSON)\t\t\t\n\n");
+			printf("3. MATHERAN\nVALIDITY-3D/2N\nRATE- 15,000(PER/PERSON)\t\t\t\n\n");
+			printf("4. ALIBAUG\nVALIDITY-2D/1N\nRATE- 5,000(PER/PERSON)\t\t\t\n\n");
+			printf("5. SHIMLA\nVALIDITY-5D/4N\nRATE- 25,000(PER/PERSON)\t\t\t\n\n");
+			printf("6. MANALI\nVALIDITY-4D/3N\nRATE- 22,000(PER/PERSON)\t\t\t\n\n");
+			printf("7. KASHMIR\nVALIDITY-6D/5N\nRATE- 29,500(PER/PERSON)\t\t\t");
+
+		}
+		else if (ch==2){
+			system("CLS");
+			printf("\t\t\tPOPULAR INTERNATIONAL DESTINATIONS\n");
+			printf("\t\t     \xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\n");
+			printf("	1. DUBAI\nVALIDITY-6D/5N\nRATE- 85,000(PER/PERSON)\t\t\t\n\n");
+			printf("2. SINGAPORE\nVALIDITY-5D/3N\nRATE- 65,000(PER/PERSON)\t\t\t\n\n");
+			printf("3. EUROPE\nVALIDITY-8D/7N\nRATE- 95,000(PER/PERSON)\t\t\t\n\n");
+			printf("4. BALI\nVALIDITY-7D/6N\nRATE- 75,000(PER/PERSON)\t\t\t\n\n");
+			printf("5. MALDIVES\nVALIDITY-4D/3N\nRATE- 67,999(PER/PERSON)\t\t\t\n\n");
+			printf("6. BANGKOK\nVALIDITY-7D/6N\nRATE- 59,999(PER/PERSON)\t\t\t\n\n");
+			printf("7. THAILAND\nVALIDITY-5D/4N\nRATE- 70,300(PER/PERSON)\t\t\t");
+
+		}
+		
+	}
