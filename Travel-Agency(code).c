@@ -221,7 +221,7 @@ return 0;
 		fflush(stdout);
 		scanf(" %s",name);
 		strcpy(u1.name,name);
-		printf("\n\t\t\t\tEnter Password --> ");
+		printf("\n\t\t\t\tEnter Password(only strings) --> ");
 		fflush(stdout);
 		scanf(" %s",pass);
 		strcpy(u1.pass,pass);
